@@ -18,10 +18,23 @@ key_mapping = {
     "S": "Scissors",
 }
 
+USER = "User"
+COMPUTER = "Computer"
+
+user_wins = 0
+computer_wins = 0
+
 
 def signal_handler(sig, frame):
     """Signal Handler when ctrl + c is pressed of SIGINT."""
-    print("\nGood bye.")
+    print("\n")
+    if user_wins > computer_wins:
+        print("Awesome. You defeated computer.")
+    elif user_wins < computer_wins:
+        print("Damm!!. computer defeated you.")
+    else:
+        print("Draw. You equal computer.")
+    print(f"You won: {user_wins}, computer won: {computer_wins}. Good bye.")
     sys.exit(0)
 
 
@@ -55,46 +68,47 @@ def game():
 
         if user_choice == "R":
             if computer_choice == "S":
-                print(
-                    f"\nUser '{key_mapping[user_choice]}' beats '{key_mapping[computer_choice]}'. You win :)"
-                )
+                winner = USER
             else:
-                print(
-                    f"\nComputer '{key_mapping[computer_choice]}' beats '{key_mapping[user_choice]}'. You lose :("
-                )
-            break
+                winner = COMPUTER
 
         elif user_choice == "P":
             if computer_choice == "R":
-                print(
-                    f"\nUser '{key_mapping[user_choice]}' beats '{key_mapping[computer_choice]}'. You win :)"
-                )
+                winner = USER
             else:
-                print(
-                    f"\nComputer '{key_mapping[computer_choice]}' beats '{key_mapping[user_choice]}'. You lose :("
-                )
-            break
+                winner = COMPUTER
 
         elif user_choice == "S":
             if computer_choice == "P":
-                print(
-                    f"\nUser '{key_mapping[user_choice]}' beats '{key_mapping[computer_choice]}'. You win :)"
-                )
+                winner = USER
             else:
-                print(
-                    f"\nComputer '{key_mapping[computer_choice]}' beats '{key_mapping[user_choice]}'. You lose :("
-                )
-            break
+                winner = COMPUTER
 
         else:
             print("Invalid input. Please enter Rock(R) Paper(P) Scissors(S).\n")
             continue
+
+        if winner == USER:
+            global user_wins
+            user_wins += 1
+            print(
+                f"User '{key_mapping[user_choice]}' beats '{key_mapping[computer_choice]}'. You win :)\n"
+            )
+        elif winner == COMPUTER:
+            global computer_wins
+            computer_wins += 1
+            print(
+                f"Computer '{key_mapping[computer_choice]}' beats '{key_mapping[user_choice]}'. You lose :(\n"
+            )
+        else:
+            print("Error: No winner !!")
 
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
     print("Welcome to Rock Paper Scissors game.\n")
     print("Rules: https://en.wikipedia.org/wiki/Rock_paper_scissors\n")
+    print("Quit: Ctrl + C\n")
     print("Rock (R)")
     print("Paper (P)")
     print("Scissors (S)\n")

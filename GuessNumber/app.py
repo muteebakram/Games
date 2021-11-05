@@ -38,7 +38,7 @@ def validate_integer(num):
     try:
         num = int(num)
         if num <= 0:
-            print("Zero and negative number is NOT allowed.")
+            print("Zero or negative number is NOT allowed.")
             return False
 
         return num
@@ -69,8 +69,8 @@ def pick_ans(max):
         return int(max)
 
 
-def guess_number(max):
-    """Guess the number.
+def user_guess_number(max):
+    """Guess the number for user.
 
     Args:
         max (str, int): Upper limit to guess number.
@@ -84,6 +84,7 @@ def guess_number(max):
     guess = -1
     ans = pick_ans(max)
     while guess != ans:
+        count += 1
         guess = validate_integer(input(f"\nGuess the number from 1-{max}: "))
         if not guess:
             print(f"Please type a valid integer (1-{max})")
@@ -94,15 +95,13 @@ def guess_number(max):
         elif guess < ans:
             print("Guess is too low.")
 
-        count += 1
-
     print(f"\nYay! you have guessed the number {ans} correctly in {count} attempts.")
     if count <= 5:
-        print("Exceptional perfomance. I bet you can read my mind.")
+        print("Exceptional perfomance. I bet you can read computer's mind.")
 
 
 def computer_guess_number(upper_limit=100, ans=None):
-    """Guess the number.
+    """Guess the number for computer.
 
     Args:
         max (str, int): Upper limit to guess number.
@@ -121,9 +120,10 @@ def computer_guess_number(upper_limit=100, ans=None):
     guess = 0
     min, max = 1, upper_limit
     while guess != ans:
+        count += 1
         guess = random.randrange(min, max)
-        if not guess:
-            print(f"Please type a valid integer (1-{max})")
+        if not guess or type(guess) != int:
+            print(f"Please type a valid integer (1-{upper_limit})")
             continue
 
         if guess > ans:
@@ -134,7 +134,6 @@ def computer_guess_number(upper_limit=100, ans=None):
             min = guess
 
         print(f"Computer guessed {guess}.")
-        count += 1
         sleep(0.6)
 
     print(f"\nYay! computer guessed the number {ans} correctly in {count} attempts.")
@@ -153,7 +152,7 @@ if __name__ == "__main__":
     if choice and (choice == 1 or choice == 2):
         if choice == 1:
             max = input("Enter the maximum number of guess game: ")
-            guess_number(max)
+            user_guess_number(max)
         elif choice == 2:
             upper_limit = input("Enter the maximum number of guess game: ")
             ans = input("Enter the number to be guessed by computer: ")

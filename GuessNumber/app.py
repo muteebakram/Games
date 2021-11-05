@@ -12,6 +12,7 @@ import sys
 import math
 import random
 import signal
+from time import sleep
 
 
 def signal_handler(sig, frame):
@@ -89,18 +90,74 @@ def guess_number(max):
             continue
 
         if guess > ans:
-            print("Guess too high.")
+            print("Guess is too high.")
         elif guess < ans:
-            print("Guess too low.")
+            print("Guess is too low.")
 
         count += 1
 
     print(f"\nYay! you have guessed the number {ans} correctly in {count} attempts.")
-    if (count <= 5):
+    if count <= 5:
         print("Exceptional perfomance. I bet you can read my mind.")
+
+
+def computer_guess_number(upper_limit=100, ans=None):
+    """Guess the number.
+
+    Args:
+        max (str, int): Upper limit to guess number.
+    """
+    upper_limit = validate_integer(upper_limit)
+    if not upper_limit:
+        print("Unkown number, please type a valid integer.")
+        return
+
+    ans = validate_integer(ans)
+    if not ans:
+        print(f"Unkown number, please type a answer (1-{upper_limit}).")
+        return
+
+    count = 0
+    guess = 0
+    min, max = 1, upper_limit
+    while guess != ans:
+        guess = random.randrange(min, max)
+        if not guess:
+            print(f"Please type a valid integer (1-{max})")
+            continue
+
+        if guess > ans:
+            print("Guess is too high.", end=" ")
+            max = guess
+        elif guess < ans:
+            print("Guess is too low.", end=" ")
+            min = guess
+
+        print(f"Computer guessed {guess}.")
+        count += 1
+        sleep(0.6)
+
+    print(f"\nYay! computer guessed the number {ans} correctly in {count} attempts.")
+    if count <= 5:
+        print("Exceptional perfomance. I bet computer can read your mind.")
 
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
-    max = input("Enter the upper limit: ")
-    guess_number(max)
+    print("Welcome to guess the number game.")
+    print("\nEnter the player:")
+    print("1. User")
+    print("2. Computer")
+
+    choice = validate_integer(input("\nWho is playing? "))
+    if choice and (choice == 1 or choice == 2):
+        if choice == 1:
+            max = input("Enter the maximum number of guess game: ")
+            guess_number(max)
+        elif choice == 2:
+            upper_limit = input("Enter the maximum number of guess game: ")
+            ans = input("Enter the number to be guessed by computer: ")
+            computer_guess_number(upper_limit=upper_limit, ans=ans)
+    else:
+        print("Invalid choice. Enter 1 or 2.")
+        exit(0)

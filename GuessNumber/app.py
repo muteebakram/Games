@@ -2,7 +2,7 @@
 # Name      : app.py
 # Purpose   : Guess the number game.
 #
-# Author    : Muteeb Akram (muteeb_akram)
+# Author    : Muteeb Akram (muteebakram)
 #
 # Created   : 5-Nov-2021
 # Changes   :
@@ -15,6 +15,7 @@ import signal
 
 
 def signal_handler(sig, frame):
+    """Signal Handler when ctrl + c is pressed of SIGINT."""
     print("\nGood bye.")
     sys.exit(0)
 
@@ -36,7 +37,7 @@ def validate_integer(num):
     try:
         num = int(num)
         if num <= 0:
-            print("Zero and negative number is allowed.")
+            print("Zero and negative number is NOT allowed.")
             return False
 
         return num

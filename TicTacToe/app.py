@@ -167,6 +167,14 @@ class TicTacToe:
         """
         print()
         self.print_points()
+
+        if self.player_o_wins > self.player_x_wins:
+            print("Player-X is Tic Tac Toe champion.")
+        elif self.player_x_wins > self.player_o_wins:
+            print("Player-O is Tic Tac Toe champion.")
+        else:
+            print("Draw! Players you need to re-match for ultimate Tic Tac Toe champion")
+
         print("Good Bye. Have a nice day :)")
         sys.exit(0)
 

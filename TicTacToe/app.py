@@ -86,25 +86,25 @@ class TicTacToe:
             bool: True if won else False.
         """
         # Horizontal win check
-        if self.board[0] == self.board[1] == self.board[2] == self.current_player:
-            return True
-        if self.board[3] == self.board[4] == self.board[5] == self.current_player:
-            return True
-        if self.board[6] == self.board[7] == self.board[8] == self.current_player:
+        if (
+            (self.board[0] == self.board[1] == self.board[2] == self.current_player)
+            or (self.board[3] == self.board[4] == self.board[5] == self.current_player)
+            or (self.board[6] == self.board[7] == self.board[8] == self.current_player)
+        ):
             return True
 
         # Vertical win check
-        if self.board[0] == self.board[3] == self.board[6] == self.current_player:
-            return True
-        if self.board[1] == self.board[4] == self.board[7] == self.current_player:
-            return True
-        if self.board[2] == self.board[5] == self.board[8] == self.current_player:
+        if (
+            (self.board[0] == self.board[3] == self.board[6] == self.current_player)
+            or (self.board[1] == self.board[4] == self.board[7] == self.current_player)
+            or (self.board[2] == self.board[5] == self.board[8] == self.current_player)
+        ):
             return True
 
         # Diagonal win check
-        if self.board[0] == self.board[4] == self.board[8] == self.current_player:
-            return True
-        if self.board[6] == self.board[4] == self.board[2] == self.current_player:
+        if (self.board[0] == self.board[4] == self.board[8] == self.current_player) or (
+            self.board[6] == self.board[4] == self.board[2] == self.current_player
+        ):
             return True
 
         # No win

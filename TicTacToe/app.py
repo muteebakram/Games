@@ -75,7 +75,7 @@ class TicTacToe:
         except ValueError:
             print(
                 f"Invalid input from Player-{self.current_player}."
-                " Enter a free available position from (1-9).\n"
+                " Enter a free available position (1-9).\n"
             )
             return False
 

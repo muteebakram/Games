@@ -101,7 +101,7 @@ class TicTacToe:
         if self.board[2] == self.board[5] == self.board[8] == self.current_player:
             return True
 
-        # Diagnol win check
+        # Diagonal win check
         if self.board[0] == self.board[4] == self.board[8] == self.current_player:
             return True
         if self.board[6] == self.board[4] == self.board[2] == self.current_player:
@@ -149,11 +149,11 @@ class TicTacToe:
 
     def clear_game(self):
         """
-        Clear or rest the board when game is won or draw.
-        Randomly select who gets to start the game.
+        Clear or rest the board when game is draw or won.
+        Randomly choice who gets to start the next game.
         """
         self.board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        self.current_player = random.choice(["O", "X"])
+        self.current_player = random.choice([self.player_x, self.player_o])
         print(f"Player-{self.current_player} start game #{self.total_games + 1}")
         self.print_board()
         print("-" * 29)
@@ -188,7 +188,9 @@ def start():
                 print("Draw game!\n")
 
             if game.is_win():
-                print(f"\nPlayer-{game.current_player} WON the game #{game.total_games + 1}.")
+                print(
+                    f"\nPlayer-{game.current_player} WON the game #{game.total_games}."
+                )
                 game.add_points()
 
             game.print_points()
